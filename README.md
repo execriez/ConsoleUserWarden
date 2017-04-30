@@ -3,7 +3,7 @@
 
 Run custom code when the console user changes on MacOS.
 
-##Description:
+## Description:
 
 ConsoleUserWarden catches MacOS console user changes, to allow you to run custom code when a user logs in, or switches users.
 
@@ -20,7 +20,7 @@ The example ConsoleUserWarden-NewConsoleUser and ConsoleUserWarden-NoConsoleUser
 The example scripts simply use the "say" command to let you know when the console user changes. You should customise these scripts to your own needs.
 
 
-##How to install:
+## How to install:
 
 Download the ConsoleUserHookWarden zip archive from <https://github.com/execriez/ConsoleUserHookWarden>, then unzip the archive on a Mac workstation.
 
@@ -48,7 +48,7 @@ You can alter the example shell scripts to alter this behavior, these can be fou
 
 If the installer fails you should check the logs.
 
-##Logs:
+## Logs:
 
 Logs are written to the following file:
 
@@ -85,7 +85,7 @@ The following is an example of a typical log file:
 	30 Apr 2017 09:28:11 Uninstall[28251]: Notice: Deleting project dir /usr/local/ConsoleUserWarden
  
 
-##How to uninstall:
+## How to uninstall:
 
 To uninstall you should double-click the following uninstaller package which can be found in the "SupportFiles" directory.
 
@@ -104,7 +104,7 @@ There's no need to reboot.
 
 After the uninstall everything goes back to normal, and console user changes will not be tracked.
 
-##History:
+## History:
 
 1.0.2 - 29 APR 2017
 
