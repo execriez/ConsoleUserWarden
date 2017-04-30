@@ -22,11 +22,11 @@ The example scripts simply use the "say" command to let you know when the consol
 
 ## How to install:
 
-Download the ConsoleUserHookWarden zip archive from <https://github.com/execriez/ConsoleUserHookWarden>, then unzip the archive on a Mac workstation.
+Download the ConsoleUserWarden zip archive from <https://github.com/execriez/ConsoleUserWarden>, then unzip the archive on a Mac workstation.
 
 Ideally, to install - you should double-click the following installer package which can be found in the "SupportFiles" directory.
 
-	  ConsoleUserHookWarden.pkg
+	  ConsoleUserWarden.pkg
 	
 If the installer package isn't available, you can run the command-line installer which can be found in the "util" directory:
 
@@ -34,8 +34,8 @@ If the installer package isn't available, you can run the command-line installer
 
 The installer will install the following files and directories:
 
-	  /Library/LaunchDaemons/com.github.execriez.ConsoleUserHookWarden.plist
-	  /usr/ConsoleUserHookWarden/
+	  /Library/LaunchDaemons/com.github.execriez.ConsoleUserWarden.plist
+	  /usr/ConsoleUserWarden/
 
 There's no need to reboot.
 
@@ -43,8 +43,8 @@ After installation, your computer will speak whenever the ConsoleUser changes.
  
 You can alter the example shell scripts to alter this behavior, these can be found in the following location:
 
-	  /usr/ConsoleUserHookWarden/bin/ConsoleUserWarden-NewConsoleUser
-	  /usr/ConsoleUserHookWarden/bin/ConsoleUserWarden-NoConsoleUser
+	  /usr/ConsoleUserWarden/bin/ConsoleUserWarden-NewConsoleUser
+	  /usr/ConsoleUserWarden/bin/ConsoleUserWarden-NoConsoleUser
 
 If the installer fails you should check the logs.
 
@@ -52,7 +52,7 @@ If the installer fails you should check the logs.
 
 Logs are written to the following file:
 
-  /Library/Logs/com.github.execriez.ConsoleUserHookWarden.log
+  /Library/Logs/com.github.execriez.ConsoleUserWarden.log
   
 The following is an example of a typical log file:
 
@@ -89,16 +89,16 @@ The following is an example of a typical log file:
 
 To uninstall you should double-click the following uninstaller package which can be found in the "SupportFiles" directory.
 
-	  ConsoleUserHookWarden-Uninstaller.pkg
+	  ConsoleUserWarden-Uninstaller.pkg
 	
 If the uninstaller package isn't available, you can uninstall from a shell by typing the following:
 
-	  sudo /usr/local/ConsoleUserHookWarden/util/Uninstall
+	  sudo /usr/local/ConsoleUserWarden/util/Uninstall
 
 The uninstaller will uninstall the following files and directories:
 
-	  /Library/LaunchDaemons/com.github.execriez.ConsoleUserHookWarden.plist
-	  /usr/ConsoleUserHookWarden/
+	  /Library/LaunchDaemons/com.github.execriez.ConsoleUserWarden.plist
+	  /usr/ConsoleUserWarden/
 
 There's no need to reboot.
 
