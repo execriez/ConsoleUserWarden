@@ -2,8 +2,8 @@
 #
 # Short:    Perform pre-install checks
 # Author:   Mark J Swift
-# Version:  1.0.2
-# Modified: 29-Apr-2017
+# Version:  1.0.3
+# Modified: 30-Apr-2017
 #
 #
 # Called as follows (by Install as root):    

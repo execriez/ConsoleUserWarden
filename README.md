@@ -5,19 +5,20 @@ Run custom code when the console user changes on MacOS.
 
 ## Description:
 
-ConsoleUserWarden catches MacOS console user changes, to allow you to run custom code when a user logs in, or switches users.
+ConsoleUserWarden catches MacOS console user changes, to allow you to run custom code when a user logs in, logs out, or switches users.
 
-This custom code can be used instead of Login scripts, and possibly instead of Logout scripts; depending on your situation.
+Depending on your situation, this custom code can be used instead of com.apple.loginwindow LoginHook and LogoutHook scripts.
 
 ConsoleUserWarden consists of the following components:
 
 	ConsoleUserWarden                - The main binary that catches the console user change events
-	ConsoleUserWarden-NewConsoleUser - Called when the active console user changes
-	ConsoleUserWarden-NoConsoleUser  - Called when there is no active console user  
+	ConsoleUserWarden-UserLoggedIn   - Called after a user logs in and becomes the active console
+	ConsoleUserWarden-UserLoggedOut  - Called after the active console user logs out
+	ConsoleUserWarden-UserSwitch     - Called after the active console user switches to a logged in user
+ 
+The example ConsoleUserWarden-UserLoggedIn, ConsoleUserWarden-UserLoggedOut and ConsoleUserWarden-UserSwitch are bash scripts.
 
-The example ConsoleUserWarden-NewConsoleUser and ConsoleUserWarden-NoConsoleUser are bash scripts.
-
-The example scripts simply use the "say" command to let you know when the console user changes. You should customise these scripts to your own needs.
+The example scripts simply use the "say" command to let you know when the console user logs in, logs out or swiches. You should customise these scripts to your own needs.
 
 
 ## How to install:
@@ -43,47 +44,62 @@ After installation, your computer will speak whenever the ConsoleUser changes.
  
 You can alter the example shell scripts to alter this behavior, these can be found in the following location:
 
-	  /usr/ConsoleUserWarden/bin/ConsoleUserWarden-NewConsoleUser
-	  /usr/ConsoleUserWarden/bin/ConsoleUserWarden-NoConsoleUser
+	  /usr/ConsoleUserWarden/bin/ConsoleUserWarden-UserLoggedIn
+	  /usr/ConsoleUserWarden/bin/ConsoleUserWarden-UserLoggedOut
+	  /usr/ConsoleUserWarden/bin/ConsoleUserWarden-UserSwitch
 
 If the installer fails you should check the logs.
 
 ## Logs:
 
-Logs are written to the following file:
+The ConsoleUser bash scripts write to the following log file:
 
-  /Library/Logs/com.github.execriez.ConsoleUserWarden.log
+	/Library/Logs/com.github.execriez.ConsoleUserWarden.log
   
 The following is an example of a typical log file:
 
-	30 Apr 2017 09:24:18 PreInstall[36506]: Information: Performing pre-install checks
-	30 Apr 2017 09:24:18 PreInstall[36506]: Information: OK to install.
-	30 Apr 2017 09:24:18 PostInstall[36551]: Information: Performing post-install checks
-	30 Apr 2017 09:24:18 PostInstall[36551]: Notice: Loading LaunchDaemon file com.github.execriez.consoleuserwarden.plist
-	30 Apr 2017 09:24:18 PostInstall[36551]: Information: ConsoleUserWarden installed OK.
-	30 Apr 2017 09:24:53 ConsoleUserWarden-NoConsoleUser[2023]: Notice: No Console User - 'none' (previously 'init')
-	30 Apr 2017 09:25:08 ConsoleUserWarden-NewConsoleUser[5968]: Notice: New Console User - 'local' (previously 'none')
-	30 Apr 2017 09:25:08 ConsoleUserWarden-NewConsoleUser[5968]: Information: User local logged in
-	30 Apr 2017 09:25:58 ConsoleUserWarden-NewConsoleUser[11241]: Notice: New Console User - 'loginwindow' (previously 'local')
-	30 Apr 2017 09:26:04 ConsoleUserWarden-NewConsoleUser[11773]: Notice: New Console User - 'offline' (previously 'loginwindow')
-	30 Apr 2017 09:26:04 ConsoleUserWarden-NewConsoleUser[11773]: Information: User offline logged in
-	30 Apr 2017 09:26:30 ConsoleUserWarden-NewConsoleUser[16781]: Notice: New Console User - 'local' (previously 'offline')
-	30 Apr 2017 09:26:30 ConsoleUserWarden-NewConsoleUser[16781]: Information: Fast User Switch local
-	30 Apr 2017 09:26:42 ConsoleUserWarden-NewConsoleUser[16901]: Notice: New Console User - 'offline' (previously 'local')
-	30 Apr 2017 09:26:42 ConsoleUserWarden-NewConsoleUser[16901]: Information: Fast User Switch offline
-	30 Apr 2017 09:26:54 ConsoleUserWarden-NewConsoleUser[18111]: Notice: New Console User - 'loginwindow' (previously 'offline')
-	30 Apr 2017 09:26:54 ConsoleUserWarden-NewConsoleUser[18111]: Information: User offline logged out
-	30 Apr 2017 09:27:05 ConsoleUserWarden-NewConsoleUser[18673]: Notice: New Console User - 'local' (previously 'loginwindow')
-	30 Apr 2017 09:27:05 ConsoleUserWarden-NewConsoleUser[18673]: Information: User local logged in
-	30 Apr 2017 09:27:16 ConsoleUserWarden-NoConsoleUser[20672]: Notice: No Console User - 'none' (previously 'local')
-	30 Apr 2017 09:27:16 ConsoleUserWarden-NoConsoleUser[20672]: Information: User local logged out
-	30 Apr 2017 09:27:28 ConsoleUserWarden-NewConsoleUser[21406]: Notice: New Console User - 'local' (previously 'none')
-	30 Apr 2017 09:27:28 ConsoleUserWarden-NewConsoleUser[21406]: Information: User local logged in
-	30 Apr 2017 09:28:11 Uninstall[28251]: Notice: Uninstalling ConsoleUserWarden.
-	30 Apr 2017 09:28:11 Uninstall[28251]: Notice: Removing LaunchDaemon service com.github.execriez.consoleuserwarden
-	30 Apr 2017 09:28:11 Uninstall[28251]: Notice: Deleting LaunchDaemon file com.github.execriez.consoleuserwarden.plist
-	30 Apr 2017 09:28:11 Uninstall[28251]: Notice: Deleting project dir /usr/local/ConsoleUserWarden
- 
+	03 May 2017 12:40:58 PreInstall[37153]: Information: Performing pre-install checks
+	03 May 2017 12:40:58 PreInstall[37153]: Information: OK to install.
+	03 May 2017 12:40:59 PostInstall[37196]: Information: Performing post-install checks
+	03 May 2017 12:40:59 PostInstall[37196]: Notice: Loading LaunchDaemon file com.github.execriez.consoleuserwarden.plist
+	03 May 2017 12:40:59 PostInstall[37196]: Information: ConsoleUserWarden installed OK.
+	03 May 2017 12:42:07 ConsoleUserWarden-UserLoggedIn[5497]: Notice: User logged in - 'local'
+	03 May 2017 12:44:05 ConsoleUserWarden-UserLoggedIn[12115]: Notice: User logged in - 'offline'
+	03 May 2017 12:45:04 ConsoleUserWarden-UserSwitch[17191]: Notice: User Swich to 'local' (previously 'offline')
+	03 May 2017 12:45:13 ConsoleUserWarden-UserSwitch[17239]: Notice: User Swich to 'offline' (previously 'local')
+	03 May 2017 12:45:24 ConsoleUserWarden-UserLoggedOut[18987]: Notice: User logged out - 'offline'
+	03 May 2017 12:45:37 ConsoleUserWarden-UserSwitch[20638]: Notice: User Swich to 'local' (previously 'loginwindow')
+	03 May 2017 12:45:50 ConsoleUserWarden-UserLoggedOut[22245]: Notice: User logged out - 'local'
+	03 May 2017 12:46:05 ConsoleUserWarden-UserLoggedIn[22836]: Notice: User logged in - 'local'
+	03 May 2017 12:47:32 Uninstall[29678]: Notice: Uninstalling ConsoleUserWarden.
+	03 May 2017 12:47:32 Uninstall[29678]: Notice: Removing LaunchDaemon service com.github.execriez.consoleuserwarden
+	03 May 2017 12:47:32 Uninstall[29678]: Notice: Deleting LaunchDaemon file com.github.execriez.consoleuserwarden.plist
+	03 May 2017 12:47:32 Uninstall[29678]: Notice: Deleting project dir /usr/local/ConsoleUserWarden
+  
+The ConsoleUser binary writes to the following log file:
+
+	/var/log/systemlog
+  
+The following is an example of a typical log file:
+
+	May  3 12:41:36 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: New Console User: new user 'none', old user 'init' new list '/root/', old list '/'
+	May  3 12:42:07 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: New Console User: new user 'local', old user 'none' new list '/local/', old list '/root/'
+	May  3 12:42:11 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: User logged in: 'local'
+	May  3 12:43:59 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: New Console User: new user 'loginwindow', old user 'local' new list '/root/local/', old list '/local/'
+	May  3 12:44:05 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: New Console User: new user 'offline', old user 'loginwindow' new list '/offline/local/', old list '/root/local/'
+	May  3 12:44:07 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: User logged in: 'offline'
+	May  3 12:45:03 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: New Console User: new user 'local', old user 'offline' new list '/offline/local/', old list '/offline/local/'
+	May  3 12:45:06 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: User switch: to 'local' from 'offline'
+	May  3 12:45:13 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: New Console User: new user 'offline', old user 'local' new list '/offline/local/', old list '/offline/local/'
+	May  3 12:45:15 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: User switch: to 'offline' from 'local'
+	May  3 12:45:23 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: New Console User: new user 'loginwindow', old user 'offline' new list '/root/local/', old list '/offline/local/'
+	May  3 12:45:26 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: User logged out: 'offline'
+	May  3 12:45:36 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: New Console User: new user 'local', old user 'loginwindow' new list '/local/', old list '/root/local/'
+	May  3 12:45:38 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: User switch: to 'local' from 'loginwindow'
+	May  3 12:45:50 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: New Console User: new user 'none', old user 'local' new list '/', old list '/local/'
+	May  3 12:45:52 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: User logged out: 'local'
+	May  3 12:46:05 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: New Console User: new user 'local', old user 'none' new list '/local/', old list '/root/'
+	May  3 12:46:06 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: User logged in: 'local'
 
 ## How to uninstall:
 
@@ -109,3 +125,8 @@ After the uninstall everything goes back to normal, and console user changes wil
 1.0.2 - 29 APR 2017
 
 * First public release.
+
+1.0.3 - 30 APR 2017
+
+* The ConsoleUserWarden binary now determines login, logout and user switch in order to call an appropriate bash script.
+

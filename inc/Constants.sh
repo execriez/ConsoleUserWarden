@@ -2,8 +2,8 @@
 #
 # Short:    Constants (shell)
 # Author:   Mark J Swift
-# Version:  1.0.2
-# Modified: 29-Apr-2017
+# Version:  1.0.3
+# Modified: 30-Apr-2017
 #
 # Should be included into scripts as follows:
 #   . /usr/local/ConsoleUserWarden/inc/Constants.sh
@@ -18,7 +18,7 @@ then
   #  GLB_sv_ProjectName                     - Project name (ConsoleUserWarden)
   #  GLB_sv_ProjectInitials                 - Project initials (CUW)
   #  GLB_sv_ProjectDeveloper                - Project developer (com.github.execriez)
-  #  GLB_sv_ProjectVersion                  - Project version (i.e. 1.0.2)
+  #  GLB_sv_ProjectVersion                  - Project version (i.e. 1.0.3)
   #
   #  GLB_iv_MaxLogSizeBytes                 - Maximum length of ConsoleUserWarden log(s)
   #  GLB_bv_LogIsActiveStatusDefault              - Whether we should log by default (true/false) 
@@ -49,7 +49,7 @@ then
   GLB_sv_ProjectName="ConsoleUserWarden"
   GLB_sv_ProjectInitials="CUW"
   GLB_sv_ProjectDeveloper="com.github.execriez"
-  GLB_sv_ProjectVersion="1.0.2"
+  GLB_sv_ProjectVersion="1.0.3"
 
   # --- 
   

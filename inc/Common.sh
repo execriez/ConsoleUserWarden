@@ -2,8 +2,8 @@
 #
 # Short:    Common routines (shell)
 # Author:   Mark J Swift
-# Version:  1.0.2
-# Modified: 29-Apr-2017
+# Version:  1.0.3
+# Modified: 30-Apr-2017
 #
 # Should be included into scripts as follows:
 #   . /usr/local/LabWarden/inc/Common.sh

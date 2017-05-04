@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# Short:    Do something when a user logs out
+# Author:   Mark J Swift
+# Version:  1.0.3
+# Modified: 30-Apr-2017
+#
+# Called by ConsoleUserWarden as follows:    
+#   ConsoleUserWarden-UserLoggedIn <PreviousConsoleUser>
+#
+
+# ---
+
+# assume that all scripts are in a subdirectory off the main project directory
+GLB_sv_ProjectDirPath="$(dirname $(dirname ${0}))"
+
+# Include the CommonLib
+. "${GLB_sv_ProjectDirPath}/inc/Common.sh"
+
+# Exit if something went wrong unexpectedly
+if test -z "${GLB_sv_ProjectName}"
+then
+  exit 90
+fi
+
+# ---
+
+sv_PreviousConsoleUser="${1}"
+
+# ---
+
+GLB_nf_logmessage ${GLB_iv_MsgLevelNotice} "User logged out - '${sv_PreviousConsoleUser}'"
+
+say "User ${sv_PreviousConsoleUser} logged out"

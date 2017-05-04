@@ -21,8 +21,9 @@ After installation, your computer will speak whenever the ConsoleUser changes.
 
 You can alter the example shell scripts to alter this behavior, these can be found in the following location:
 
-  /usr/ConsoleUserWarden/bin/ConsoleUserWarden-NewConsoleUser
-  /usr/ConsoleUserWarden/bin/ConsoleUserWarden-NoConsoleUser
+	  /usr/ConsoleUserWarden/bin/ConsoleUserWarden-UserLoggedIn
+	  /usr/ConsoleUserWarden/bin/ConsoleUserWarden-UserLoggedOut
+	  /usr/ConsoleUserWarden/bin/ConsoleUserWarden-UserSwitch
 
 If the installer fails you should check the logs.
 

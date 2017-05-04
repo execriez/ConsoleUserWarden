@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+# Short:    Do something when the active Console User switches
+# Author:   Mark J Swift
+# Version:  1.0.3
+# Modified: 30-Apr-2017
+#
+# Called by ConsoleUserWarden as follows:    
+#   ConsoleUserWarden-UserSwich <ActiveConsoleUser> <PreviousConsoleUser>
+#
+
+# ---
+
+# assume that all scripts are in a subdirectory off the main project directory
+GLB_sv_ProjectDirPath="$(dirname $(dirname ${0}))"
+
+# Include the CommonLib
+. "${GLB_sv_ProjectDirPath}/inc/Common.sh"
+
+# Exit if something went wrong unexpectedly
+if test -z "${GLB_sv_ProjectName}"
+then
+  exit 90
+fi
+
+# ---
+
+sv_ActiveConsoleUser="${1}"
+sv_PreviousConsoleUser="${2}"
+
+# ---
+
+GLB_nf_logmessage ${GLB_iv_MsgLevelNotice} "User Swich to '${sv_ActiveConsoleUser}' (previously '${sv_PreviousConsoleUser}')"
+
+say "User Switch to ${sv_ActiveConsoleUser}"

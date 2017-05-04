@@ -1,31 +1,40 @@
 //
 //  main.m
 //  ConsoleUserWarden
-//  Version 1.0.2
+//  Version 1.0.3
 //
-//  Created on 29/04/2017 by Mark J Swift
-//  Pu together by modifying some of my other projects; which in turn were created by googling example code.
+//  Created on 30/04/2017 by Mark J Swift
+//  Put together by modifying some of my other projects; which in turn were created by googling example code.
 //
-//  Calls an external commands via bash when network state changes between up and down
-//  External commands are ConsoleUserWarden-NetworkUp and ConsoleUserWarden-NetworkDown
+//  Calls an external commands via bash when the console user changes
+//  External commands are ConsoleUserWarden-NoConsoleUser and ConsoleUserWarden-NewConsoleUser
 
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 
+#undef	kSCPropUsersConsoleUserName
+#define	kSCPropUsersConsoleUserName	CFSTR("Name")
+
+#undef	kSCPropUsersConsoleSessionInfo
+#define	kSCPropUsersConsoleSessionInfo	CFSTR("SessionInfo")
+
 @interface GlobalVars : NSObject
 {
     NSString *_activeConsoleUserName;
+    NSString *_activeConsoleUsersString;
 }
 
 + (GlobalVars *)sharedInstance;
 
 @property(strong, nonatomic, readwrite) NSString *activeConsoleUserName;
+@property(strong, nonatomic, readwrite) NSString *activeConsoleUsersString;
 
 @end
 
 @implementation GlobalVars
 
 @synthesize activeConsoleUserName = _activeConsoleUserName;
+@synthesize activeConsoleUsersString = _activeConsoleUsersString;
 
 + (GlobalVars *)sharedInstance {
     static GlobalVars *instance = nil;
@@ -41,6 +50,7 @@
     if (self) {
         // Note not using _activeConsoleUserName = [[NSString alloc] init] as it doesnt return a useful object
         _activeConsoleUserName = nil;
+        _activeConsoleUsersString = nil;
     }
     return self;
 }
@@ -79,6 +89,13 @@ void ConsoleUserCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, void *
     CFStringRef		state_users_consoleuser_KeyName = NULL;
     NSString        *currentConsoleUserName = @"none";
     NSString        *previousConsoleUserName = @"none";
+    CFArrayRef		sessioninfo		= NULL;
+    CFIndex         c;
+    CFIndex         j;
+    CFDictionaryRef sessionvalue;
+    NSString        *SessionUserName = NULL;
+    NSString        *currentConsoleUsersString = @"/";
+    NSString        *previousConsoleUsersString = @"/";
     
     NSString        * exepath = [[NSBundle mainBundle] executablePath];
     
@@ -96,15 +113,40 @@ void ConsoleUserCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, void *
         // We are only interested in "State:/Users/ConsoleUser"
         if (CFStringCompare(changedKeyName, state_users_consoleuser_KeyName, 0) == kCFCompareEqualTo) {
             
-            // Get the previous primary interface from our global vars
+            // Get the previous console user from our global vars
             previousConsoleUserName=globals.activeConsoleUserName;
             
-            // Get the /Network/Global/IPv4 Key property
+            // Get the previous console users string from our global vars
+            previousConsoleUsersString=globals.activeConsoleUsersString;
+            
+            // Get the /Users/ConsoleUser Key property
             CFPropertyListRef changedKeyProp = SCDynamicStoreCopyValue(store, (CFStringRef) changedKeyName);
             
-            // Get the current primary interface from the Key property
+            currentConsoleUsersString = @"/";
+            
             if (changedKeyProp) {
+                // Get the current console user from the Key property
                 currentConsoleUserName = [(__bridge NSDictionary *)changedKeyProp valueForKey:@"Name"];
+                
+                // Build a string containing all the current console users separated by '/' characters
+                sessioninfo = CFDictionaryGetValue(changedKeyProp, kSCPropUsersConsoleSessionInfo);
+                if (sessioninfo) {
+                    c = CFArrayGetCount(sessioninfo);
+                    for (j=0; j<c; j++) {
+                        sessionvalue = CFArrayGetValueAtIndex(sessioninfo, j);
+                        if (sessionvalue) {
+                            SessionUserName = (NSString *)CFDictionaryGetValue(sessionvalue, CFSTR("kCGSSessionUserNameKey"));
+                            if(SessionUserName)
+                            {
+                                currentConsoleUsersString = [NSString stringWithFormat:@"%@%@/", currentConsoleUsersString, SessionUserName];
+                            }
+                            //CFRelease(sessionvalue); // not sure why I can't do this
+                        }
+                        
+                    }
+                    //CFRelease(sessioninfo); // not sure why I can't do this
+                }
+
             } else {
                 currentConsoleUserName = @"none";
             }
@@ -113,18 +155,79 @@ void ConsoleUserCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, void *
             if (!currentConsoleUserName) {
                 currentConsoleUserName = @"none";
             }
-            
-            // Set the current primary interface
+
+            // Set the current console user
             globals.activeConsoleUserName = currentConsoleUserName;
+            globals.activeConsoleUsersString = currentConsoleUsersString;
             
-            // Only do something if the primary interface value has changed
-            if ([previousConsoleUserName compare:currentConsoleUserName] != NSOrderedSame) {
+            // Only do something if the console user value has changed
+            if ([currentConsoleUserName compare:previousConsoleUserName] != NSOrderedSame) {
+                // current console user is not the same as the previous console user
+ 
+                
+                NSLog(@"New Console User: new user '%@', old user '%@' new list '%@', old list '%@'", currentConsoleUserName, previousConsoleUserName, currentConsoleUsersString, previousConsoleUsersString);
+
+                
                 if ([currentConsoleUserName compare:@"none"] == NSOrderedSame) {
-                    [[NSString stringWithFormat:@"%@-NoConsoleUser '%@' '%@'", exepath, currentConsoleUserName, previousConsoleUserName] runAsCommand];
-                    NSLog(@"No Console User: new '%@', old '%@'", currentConsoleUserName, previousConsoleUserName);
+                    // current console user is 'none'
+                    
+                    if ([@"/init/none/loginwindow/" rangeOfString:previousConsoleUserName].location == NSNotFound) {
+                        // current console user is 'none', previous console user not 'none' (or none equivalents)
+                        [[NSString stringWithFormat:@"%@-UserLoggedOut '%@'", exepath, previousConsoleUserName] runAsCommand];
+                        NSLog(@"User logged out: '%@'", previousConsoleUserName);
+                    }
+                    
                 } else {
-                    [[NSString stringWithFormat:@"%@-NewConsoleUser '%@' '%@'", exepath, currentConsoleUserName, previousConsoleUserName] runAsCommand];
-                    NSLog(@"New Console User: new '%@', old '%@'", currentConsoleUserName, previousConsoleUserName);
+                    // current console user is not 'none'
+                    
+                    if ([@"/init/" rangeOfString:currentConsoleUserName].location == NSNotFound) {
+                        // current console user is not 'none' or 'init'
+                        
+                        if ([@"/loginwindow/" rangeOfString:currentConsoleUserName].location != NSNotFound) {
+                            // current console user is 'loginwindow'
+                            
+                            if ([@"/init/none/loginwindow/" rangeOfString:previousConsoleUserName].location == NSNotFound) {
+                                // current console user is 'loginwindow', previous console user not 'none' (or none equivalents)
+                                
+                                if ([currentConsoleUsersString rangeOfString:previousConsoleUserName].location == NSNotFound) {
+                                    // previous console user is no longer logged in
+                                    
+                                    [[NSString stringWithFormat:@"%@-UserLoggedOut '%@'", exepath, previousConsoleUserName] runAsCommand];
+                                    NSLog(@"User logged out: '%@'", previousConsoleUserName);
+                                }
+                           }
+                           
+                        } else {
+                            // current console user is not 'none', 'init' or 'loginwindow' (i.e an actual user)
+                           
+                            if ([@"/init/none/loginwindow/" rangeOfString:previousConsoleUserName].location != NSNotFound) {
+                                    // previous console user was 'init', 'none' or 'loginwindow'
+                                    
+                                if ([previousConsoleUsersString rangeOfString:currentConsoleUserName].location == NSNotFound) {
+                                    // current console user has just logged in
+                                        
+                                    [[NSString stringWithFormat:@"%@-UserLoggedIn '%@'", exepath, currentConsoleUserName] runAsCommand];
+                                    NSLog(@"User logged in: '%@'", currentConsoleUserName);
+
+                                } else {
+                                    // current console user was already logged in
+                                        
+                                    [[NSString stringWithFormat:@"%@-UserSwitch '%@' '%@'", exepath, currentConsoleUserName, previousConsoleUserName] runAsCommand];
+                                    NSLog(@"User switch: to '%@' from '%@'", currentConsoleUserName, previousConsoleUserName);
+                                }
+
+                                    
+                            } else {
+                                // previous console user was not 'init', 'none' or 'loginwindow' (i.e an actual user)
+                                    
+                                [[NSString stringWithFormat:@"%@-UserSwitch '%@' '%@'", exepath, currentConsoleUserName, previousConsoleUserName] runAsCommand];
+                                NSLog(@"User switch: to '%@' from '%@'", currentConsoleUserName, previousConsoleUserName);
+                            
+                            }
+                            
+                        }
+                    }
+                   
                 }
             }
             
@@ -146,6 +249,7 @@ int main(int argc, const char * argv[]) {
         
         GlobalVars *globals = [GlobalVars sharedInstance];
         globals.activeConsoleUserName = @"init";
+        globals.activeConsoleUsersString = @"/";
         
         SCDynamicStoreContext context = {0, NULL, NULL, NULL, NULL};
         session = SCDynamicStoreCreate(NULL, CFSTR("ConsoleUserWarden"), ConsoleUserCallback, &context);
@@ -157,7 +261,6 @@ int main(int argc, const char * argv[]) {
         key = SCDynamicStoreKeyCreate(NULL, CFSTR("%@/%@/%@"), kSCDynamicStoreDomainState, kSCCompUsers, kSCEntUsersConsoleUser);
         
         CFArrayAppendValue(keys, key);
-        CFRelease(key);
         
         // If we were tracking changes via patterns, we would do something like this:
         //
@@ -165,19 +268,21 @@ int main(int argc, const char * argv[]) {
         //key = SCDynamicStoreKeyCreate(NULL, CFSTR("%@/%@/%@/%@/%@"), kSCDynamicStoreDomainState, kSCCompNetwork, kSCCompInterface, kSCCompAnyRegex, kSCEntNetLink);
         //
         //CFArrayAppendValue(patterns, key);
-        //CFRelease(key);
         
         SCDynamicStoreSetNotificationKeys(session, keys, patterns);
-        CFRelease(keys);
-        CFRelease(patterns);
         
         rls = SCDynamicStoreCreateRunLoopSource(NULL, session, 0);
         CFRunLoopAddSource(CFRunLoopGetCurrent(), rls, kCFRunLoopCommonModes);
-        CFRelease(rls);
         
         // Run the RunLoop
         
         CFRunLoopRun();
+        
+        // release the objects (never gets called)
+        CFRelease(key);
+        CFRelease(keys);
+        CFRelease(patterns);
+        CFRelease(rls);
         
     }
     return 0;
