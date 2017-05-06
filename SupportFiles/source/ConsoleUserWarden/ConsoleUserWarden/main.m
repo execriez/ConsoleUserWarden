@@ -6,8 +6,8 @@
 //  By Mark J Swift
 //  Put together by modifying some of my other projects; which in turn were created by googling example code.
 //
-//  Calls an external commands via bash when the console user changes
-//  External commands are ConsoleUserWarden-NoConsoleUser and ConsoleUserWarden-NewConsoleUser
+//  Calls a external commands via bash when the console user changes
+//  External commands are ConsoleUserWarden-UserLoggedIn, ConsoleUserWarden-UserLoggedOut and ConsoleUserWarden-UserSwitch
 
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>

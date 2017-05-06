@@ -128,7 +128,7 @@ After the uninstall everything goes back to normal, and console user changes wil
 
 1.0.3 - 30 APR 2017
 
-* The ConsoleUserWarden binary now works out if the console user has changed due to a login, logout or user switch event; in order to call an appropriate bash script.
+* The ConsoleUserWarden binary now distinguishes login, logout and user switch events; in order to call an appropriate bash script.
 
 1.0.2 - 29 APR 2017
 

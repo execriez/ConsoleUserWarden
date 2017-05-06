@@ -18,7 +18,7 @@ then
   #  GLB_sv_ProjectName                     - Project name (ConsoleUserWarden)
   #  GLB_sv_ProjectInitials                 - Project initials (CUW)
   #  GLB_sv_ProjectDeveloper                - Project developer (com.github.execriez)
-  #  GLB_sv_ProjectVersion                  - Project version (i.e. 1.0.3)
+  #  GLB_sv_ProjectVersion                  - Project version (i.e. 1.0.4)
   #
   #  GLB_iv_MaxLogSizeBytes                 - Maximum length of ConsoleUserWarden log(s)
   #  GLB_bv_LogIsActiveStatusDefault              - Whether we should log by default (true/false) 
