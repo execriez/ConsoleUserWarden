@@ -1,9 +1,9 @@
 //
 //  main.m
 //  ConsoleUserWarden
-//  Version 1.0.3
+//  Version 1.0.4
 //
-//  Created on 30/04/2017 by Mark J Swift
+//  By Mark J Swift
 //  Put together by modifying some of my other projects; which in turn were created by googling example code.
 //
 //  Calls an external commands via bash when the console user changes
@@ -124,29 +124,31 @@ void ConsoleUserCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, void *
             
             currentConsoleUsersString = @"/";
             
-            if (changedKeyProp) {
+            if (changedKeyProp != NULL) {
                 // Get the current console user from the Key property
                 currentConsoleUserName = [(__bridge NSDictionary *)changedKeyProp valueForKey:@"Name"];
                 
                 // Build a string containing all the current console users separated by '/' characters
                 sessioninfo = CFDictionaryGetValue(changedKeyProp, kSCPropUsersConsoleSessionInfo);
-                if (sessioninfo) {
+                if (sessioninfo != NULL) {
                     c = CFArrayGetCount(sessioninfo);
                     for (j=0; j<c; j++) {
                         sessionvalue = CFArrayGetValueAtIndex(sessioninfo, j);
-                        if (sessionvalue) {
+                        if (sessionvalue != NULL) {
                             SessionUserName = (NSString *)CFDictionaryGetValue(sessionvalue, CFSTR("kCGSSessionUserNameKey"));
                             if(SessionUserName)
                             {
                                 currentConsoleUsersString = [NSString stringWithFormat:@"%@%@/", currentConsoleUsersString, SessionUserName];
                             }
-                            //CFRelease(sessionvalue); // not sure why I can't do this
+                            //CFRelease(sessionvalue); // not sure why I don't need to do this
                         }
                         
                     }
-                    //CFRelease(sessioninfo); // not sure why I can't do this
+                    //CFRelease(sessioninfo); // not sure why I don't need to do this
+                    
                 }
-
+                CFRelease(changedKeyProp);
+                
             } else {
                 currentConsoleUserName = @"none";
             }

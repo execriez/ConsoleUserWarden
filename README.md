@@ -56,7 +56,7 @@ The ConsoleUser bash scripts write to the following log file:
 
 	/Library/Logs/com.github.execriez.ConsoleUserWarden.log
   
-The following is an example of a typical log file:
+The following is an example of a typical ConsoleUserWarden log file:
 
 	03 May 2017 12:40:58 PreInstall[37153]: Information: Performing pre-install checks
 	03 May 2017 12:40:58 PreInstall[37153]: Information: OK to install.
@@ -80,7 +80,7 @@ The ConsoleUser binary writes to the following log file:
 
 	/var/log/systemlog
   
-The following is an example of a typical log file:
+The following is an example of a typical system log file:
 
 	May  3 12:41:36 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: New Console User: new user 'none', old user 'init' new list '/root/', old list '/'
 	May  3 12:42:07 afielk-m0sy1i4g.lits.blackpool.ac.uk ConsoleUserWarden[55]: New Console User: new user 'local', old user 'none' new list '/local/', old list '/root/'
@@ -122,11 +122,15 @@ After the uninstall everything goes back to normal, and console user changes wil
 
 ## History:
 
-1.0.2 - 29 APR 2017
+1.0.4 - 06 MAY 2017
 
-* First public release.
+* Fixed a memory leak.
 
 1.0.3 - 30 APR 2017
 
-* The ConsoleUserWarden binary now determines login, logout and user switch in order to call an appropriate bash script.
+* The ConsoleUserWarden binary now works out if the console user has changed due to a login, logout or user switch event; in order to call an appropriate bash script.
+
+1.0.2 - 29 APR 2017
+
+* First public release.
 
