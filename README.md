@@ -122,6 +122,10 @@ After the uninstall everything goes back to normal, and console user changes wil
 
 ## History:
 
+1.0.5 - 01 JUN 2017
+
+* Recompiled to be backward compatible with MacOS 10.7 and later
+
 1.0.4 - 06 MAY 2017
 
 * Fixed a memory leak.

@@ -2,8 +2,8 @@
 #
 # Short:    Do something when a user logs out
 # Author:   Mark J Swift
-# Version:  1.0.3
-# Modified: 30-Apr-2017
+# Version:  1.0.5
+# Modified: 01-Jun-2017
 #
 # Called by ConsoleUserWarden as follows:    
 #   ConsoleUserWarden-UserLoggedIn <PreviousConsoleUser>

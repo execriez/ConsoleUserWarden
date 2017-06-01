@@ -1,10 +1,9 @@
 //
 //  main.m
 //  ConsoleUserWarden
-//  Version 1.0.4
+//  Version 1.0.5
 //
 //  By Mark J Swift
-//  Put together by modifying some of my other projects; which in turn were created by googling example code.
 //
 //  Calls a external commands via bash when the console user changes
 //  External commands are ConsoleUserWarden-UserLoggedIn, ConsoleUserWarden-UserLoggedOut and ConsoleUserWarden-UserSwitch
@@ -102,7 +101,7 @@ void ConsoleUserCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, void *
     
     GlobalVars *globals = [GlobalVars sharedInstance];
     
-    // The key that we are interested in "State:/Network/Global/IPv4" "State:/Users/ConsoleUser"
+    // The key that we are interested in "State:/Users/ConsoleUser"
     state_users_consoleuser_KeyName = SCDynamicStoreKeyCreate(NULL, CFSTR("%@/%@/%@"), kSCDynamicStoreDomainState, kSCCompUsers, kSCEntUsersConsoleUser);
     
     // Run through the list of changed keys (there should only be one - "State:/Users/ConsoleUser")
