@@ -1,18 +1,15 @@
 UNINSTALLING:
 
-To uninstall you should double-click the following uninstaller package which can be found in the "SupportFiles" directory.
+Download the ConsoleUserWarden uninstaller package here:
 
-  ConsoleUserWarden-Uninstaller.pkg
-	
-If the uninstaller package isn't available, you can uninstall from a shell by typing the following:
+   https://raw.githubusercontent.com/execriez/ConsoleUserWarden/master/SupportFiles/ConsoleUserWarden-Uninstaller.pkg
 
-  sudo /usr/local/ConsoleUserWarden/util/Uninstall
+The uninstaller will remove the following files and directories:
 
-The uninstaller will uninstall the following files and directories:
+   /Library/LaunchDaemons/com.github.execriez.consoleuserwarden.plist
+   /usr/ConsoleUserWarden/
 
-  /Library/LaunchDaemons/com.github.execriez.ConsoleUserWarden.plist
-  /usr/ConsoleUserWarden/
+After the uninstall everything goes back to normal, and console user changes will not be tracked.
 
 There's no need to reboot.
 
-After the uninstall everything goes back to normal, and console user changes will not be tracked.

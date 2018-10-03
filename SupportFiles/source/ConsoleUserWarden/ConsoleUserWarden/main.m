@@ -1,7 +1,7 @@
 //
 //  main.m
 //  ConsoleUserWarden
-//  Version 1.0.5
+//  Version 1.0.6
 //
 //  By Mark J Swift
 //
@@ -64,17 +64,18 @@
 @implementation NSString (ShellExecution)
 
 - (NSString*)runAsCommand {
-    NSPipe* pipe = [NSPipe pipe];
+    //  NSPipe* pipe = [NSPipe pipe];
     
     NSTask* task = [[NSTask alloc] init];
     [task setLaunchPath: @"/bin/sh"];
     [task setArguments:@[@"-c", [NSString stringWithFormat:@"%@", self]]];
-    [task setStandardOutput:pipe];
+    //  [task setStandardOutput:pipe];
     
-    NSFileHandle* file = [pipe fileHandleForReading];
+    //  NSFileHandle* file = [pipe fileHandleForReading];
     [task launch];
     
-    return [[NSString alloc] initWithData:[file readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+    //  return [[NSString alloc] initWithData:[file readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+    return NULL;
 }
 
 @end
@@ -156,7 +157,7 @@ void ConsoleUserCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, void *
             if (!currentConsoleUserName) {
                 currentConsoleUserName = @"none";
             }
-
+            
             // Set the current console user
             globals.activeConsoleUserName = currentConsoleUserName;
             globals.activeConsoleUsersString = currentConsoleUsersString;
@@ -164,10 +165,10 @@ void ConsoleUserCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, void *
             // Only do something if the console user value has changed
             if ([currentConsoleUserName compare:previousConsoleUserName] != NSOrderedSame) {
                 // current console user is not the same as the previous console user
- 
                 
-                NSLog(@"New Console User: new user '%@', old user '%@' new list '%@', old list '%@'", currentConsoleUserName, previousConsoleUserName, currentConsoleUsersString, previousConsoleUsersString);
-
+                
+                // NSLog(@"New Console User: new user '%@', old user '%@' new list '%@', old list '%@'", currentConsoleUserName, previousConsoleUserName, currentConsoleUsersString, previousConsoleUsersString);
+                
                 
                 if ([currentConsoleUserName compare:@"none"] == NSOrderedSame) {
                     // current console user is 'none'
@@ -196,39 +197,39 @@ void ConsoleUserCallback(SCDynamicStoreRef store, CFArrayRef changedKeys, void *
                                     [[NSString stringWithFormat:@"%@-UserLoggedOut '%@'", exepath, previousConsoleUserName] runAsCommand];
                                     NSLog(@"User logged out: '%@'", previousConsoleUserName);
                                 }
-                           }
-                           
+                            }
+                            
                         } else {
                             // current console user is not 'none', 'init' or 'loginwindow' (i.e an actual user)
-                           
+                            
                             if ([@"/init/none/loginwindow/" rangeOfString:previousConsoleUserName].location != NSNotFound) {
-                                    // previous console user was 'init', 'none' or 'loginwindow'
-                                    
+                                // previous console user was 'init', 'none' or 'loginwindow'
+                                
                                 if ([previousConsoleUsersString rangeOfString:currentConsoleUserName].location == NSNotFound) {
                                     // current console user has just logged in
-                                        
+                                    
                                     [[NSString stringWithFormat:@"%@-UserLoggedIn '%@'", exepath, currentConsoleUserName] runAsCommand];
                                     NSLog(@"User logged in: '%@'", currentConsoleUserName);
-
+                                    
                                 } else {
                                     // current console user was already logged in
-                                        
+                                    
                                     [[NSString stringWithFormat:@"%@-UserSwitch '%@' '%@'", exepath, currentConsoleUserName, previousConsoleUserName] runAsCommand];
                                     NSLog(@"User switch: to '%@' from '%@'", currentConsoleUserName, previousConsoleUserName);
                                 }
-
-                                    
+                                
+                                
                             } else {
                                 // previous console user was not 'init', 'none' or 'loginwindow' (i.e an actual user)
-                                    
+                                
                                 [[NSString stringWithFormat:@"%@-UserSwitch '%@' '%@'", exepath, currentConsoleUserName, previousConsoleUserName] runAsCommand];
                                 NSLog(@"User switch: to '%@' from '%@'", currentConsoleUserName, previousConsoleUserName);
-                            
+                                
                             }
                             
                         }
                     }
-                   
+                    
                 }
             }
             

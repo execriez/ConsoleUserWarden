@@ -1,34 +1,12 @@
 #!/bin/bash
 #
-# Short:    Do something when a user logs in
-# Author:   Mark J Swift
-# Version:  1.0.5
-# Modified: 01-Jun-2017
-#
-# Called by ConsoleUserWarden as follows:    
-#   ConsoleUserWarden-UserLoggedIn <ActiveConsoleUser>
-#
+# Called by ConsoleUserWarden as root as follows:    
+#   ConsoleUserWarden-UserLoggedIn "ActiveConsoleUser"
+# i.e.
+#   ConsoleUserWarden-UserLoggedIn "localuser"
 
-# ---
-
-# assume that all scripts are in a subdirectory off the main project directory
-GLB_sv_ProjectDirPath="$(dirname $(dirname ${0}))"
-
-# Include the CommonLib
-. "${GLB_sv_ProjectDirPath}/inc/Common.sh"
-
-# Exit if something went wrong unexpectedly
-if test -z "${GLB_sv_ProjectName}"
-then
-  exit 90
-fi
-
-# ---
-
+# Get active console user
 sv_ActiveConsoleUser="${1}"
 
-# ---
-
-GLB_nf_logmessage ${GLB_iv_MsgLevelNotice} "User logged in - '${sv_ActiveConsoleUser}'"
-
+# Do something
 say "User ${sv_ActiveConsoleUser} logged in"

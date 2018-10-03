@@ -1,34 +1,45 @@
 INSTALLATION:
 
-Download the ConsoleUserWarden zip archive from <https://github.com/execriez/ConsoleUserWarden>, then unzip the archive on a Mac workstation.
+Download the ConsoleUserWarden installation package here:
 
-Ideally, to install - you should double-click the following installer package which can be found in the "SupportFiles" directory.
-
-  ConsoleUserWarden.pkg
-	
-If the installer package isn't available, you can run the command-line installer which can be found in the "util" directory:
-
-  sudo Install
+   https://raw.githubusercontent.com/execriez/ConsoleUserWarden/master/SupportFiles/ConsoleUserWarden.pkg
 
 The installer will install the following files and directories:
 
-  /Library/LaunchDaemons/com.github.execriez.ConsoleUserWarden.plist
-  /usr/ConsoleUserWarden/
+   /Library/LaunchDaemons/com.github.execriez.consoleuserwarden.plist
+   /usr/ConsoleUserWarden/
+   /usr/ConsoleUserWarden/bin/
+   /usr/ConsoleUserWarden/bin/ConsoleUserWarden
+   /usr/ConsoleUserWarden/bin/ConsoleUserWarden-UserLoggedIn
+   /usr/ConsoleUserWarden/bin/ConsoleUserWarden-UserLoggedOut
+   /usr/ConsoleUserWarden/bin/ConsoleUserWarden-UserSwitch
 
 There's no need to reboot.
 
 After installation, your computer will speak whenever the ConsoleUser changes.
 
-You can alter the example shell scripts to alter this behavior, these can be found in the following location:
+If the installer fails you should check the installation logs.
 
-	  /usr/ConsoleUserWarden/bin/ConsoleUserWarden-UserLoggedIn
-	  /usr/ConsoleUserWarden/bin/ConsoleUserWarden-UserLoggedOut
-	  /usr/ConsoleUserWarden/bin/ConsoleUserWarden-UserSwitch
 
-If the installer fails you should check the logs.
+MODIFYING THE EXAMPLE SCRIPTS:
+
+After installation, three simple example scripts can be found in the following location:
+
+   /usr/ConsoleUserWarden/bin/ConsoleUserWarden-UserLoggedIn
+   /usr/ConsoleUserWarden/bin/ConsoleUserWarden-UserLoggedOut
+   /usr/ConsoleUserWarden/bin/ConsoleUserWarden-UserSwitch
+
+These simple scripts use the "say" command to speak whenever the ConsoleUser changes. Modify the scripts to alter this default behaviour.
+
 
 LOGS:
 
-Logs are written to the following file:
+The ConsoleUserWarden binary writes to the following log file:
 
-  /Library/Logs/com.github.execriez.ConsoleUserWarden.log
+   /var/log/systemlog
+
+The installer writes to the following log file:
+
+   /Library/Logs/com.github.execriez.consoleuserwarden.log
+
+You should check this log if there are issues when installing.

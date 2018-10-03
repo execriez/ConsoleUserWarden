@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0720"
+   LastUpgradeVersion = "0820"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "721F29CF1EB4E9210062DEEA"
+               BlueprintIdentifier = "7232262E21654DCA006090BD"
                BuildableName = "ConsoleUserWarden"
                BlueprintName = "ConsoleUserWarden"
                ReferencedContainer = "container:ConsoleUserWarden.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "721F29CF1EB4E9210062DEEA"
+            BlueprintIdentifier = "7232262E21654DCA006090BD"
             BuildableName = "ConsoleUserWarden"
             BlueprintName = "ConsoleUserWarden"
             ReferencedContainer = "container:ConsoleUserWarden.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "721F29CF1EB4E9210062DEEA"
+            BlueprintIdentifier = "7232262E21654DCA006090BD"
             BuildableName = "ConsoleUserWarden"
             BlueprintName = "ConsoleUserWarden"
             ReferencedContainer = "container:ConsoleUserWarden.xcodeproj">
@@ -74,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "721F29CF1EB4E9210062DEEA"
+            BlueprintIdentifier = "7232262E21654DCA006090BD"
             BuildableName = "ConsoleUserWarden"
             BlueprintName = "ConsoleUserWarden"
             ReferencedContainer = "container:ConsoleUserWarden.xcodeproj">
