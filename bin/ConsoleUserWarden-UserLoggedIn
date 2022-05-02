@@ -1,12 +1,10 @@
 #!/bin/bash
 #
 # Called by ConsoleUserWarden as root as follows:    
-#   ConsoleUserWarden-UserLoggedIn "ActiveConsoleUser"
-# i.e.
-#   ConsoleUserWarden-UserLoggedIn "localuser"
+#   ConsoleUserWarden-UserLoggedIn "ActiveConsoleUserName"
 
 # Get active console user
-sv_ActiveConsoleUser="${1}"
+sv_ActiveConsoleUserName="${1}"
 
-# Do something
-say "User ${sv_ActiveConsoleUser} logged in"
+# Do Something
+echo "$(date '+%d %b %Y %H:%M:%S %Z') UserLoggedIn - User '${sv_ActiveConsoleUserName}' logged in" >> /tmp/ConsoleUserWarden.log

@@ -1,15 +1,13 @@
 #!/bin/bash
 #
 # Called by ConsoleUserWarden as root as follows:    
-#   ConsoleUserWarden-UserLoggedIn "ActiveConsoleUser" "PreviousConsoleUser"
-# i.e.
-#   ConsoleUserWarden-UserLoggedIn "newuser" "olduser"
+#   ConsoleUserWarden-UserLoggedIn "ActiveConsoleUserName" "PreviousConsoleUserName"
 
 # Get active console user
-sv_ActiveConsoleUser="${1}"
+sv_ActiveConsoleUserName="${1}"
 
 # Get previous console user
-sv_PreviousConsoleUser="${2}"
+sv_PreviousConsoleUserName="${2}"
 
-# Do something
-say "User Switch to ${sv_ActiveConsoleUser}"
+# Do Something
+echo "$(date '+%d %b %Y %H:%M:%S %Z') UserSwitch - Switched to User '${sv_ActiveConsoleUserName}' from '${sv_PreviousConsoleUserName}'" >> /tmp/ConsoleUserWarden.log

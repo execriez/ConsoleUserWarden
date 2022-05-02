@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1330"
+   LastUpgradeVersion = "0820"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7232262E21654DCA006090BD"
+               BlueprintIdentifier = "7247AB91281F537A00B69D0B"
                BuildableName = "ConsoleUserWarden"
                BlueprintName = "ConsoleUserWarden"
                ReferencedContainer = "container:ConsoleUserWarden.xcodeproj">
@@ -27,17 +27,19 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <Testables>
+      </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7232262E21654DCA006090BD"
+            BlueprintIdentifier = "7247AB91281F537A00B69D0B"
             BuildableName = "ConsoleUserWarden"
             BlueprintName = "ConsoleUserWarden"
             ReferencedContainer = "container:ConsoleUserWarden.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <Testables>
-      </Testables>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Release"
@@ -53,12 +55,14 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7232262E21654DCA006090BD"
+            BlueprintIdentifier = "7247AB91281F537A00B69D0B"
             BuildableName = "ConsoleUserWarden"
             BlueprintName = "ConsoleUserWarden"
             ReferencedContainer = "container:ConsoleUserWarden.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -70,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7232262E21654DCA006090BD"
+            BlueprintIdentifier = "7247AB91281F537A00B69D0B"
             BuildableName = "ConsoleUserWarden"
             BlueprintName = "ConsoleUserWarden"
             ReferencedContainer = "container:ConsoleUserWarden.xcodeproj">

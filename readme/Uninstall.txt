@@ -1,15 +1,17 @@
 UNINSTALLING:
 
-Download the ConsoleUserWarden uninstaller package here:
+Open the Terminal app, and download the latest NetworkStatusWarden-Uninstaller.pkg uninstaller to your desktop by typing the following command. 
 
-   https://raw.githubusercontent.com/execriez/ConsoleUserWarden/master/SupportFiles/ConsoleUserWarden-Uninstaller.pkg
+	curl -k --silent --retry 3 --retry-max-time 6 --fail https://raw.githubusercontent.com/execriez/NetworkStatusWarden/master/SupportFiles/NetworkStatusWarden-Uninstaller.pkg --output ~/Desktop/NetworkStatusWarden-Uninstaller.pkg
+
+
+To uninstall, double-click the downloaded package.
 
 The uninstaller will remove the following files and directories:
 
-   /Library/LaunchDaemons/com.github.execriez.consoleuserwarden.plist
-   /usr/ConsoleUserWarden/
+	/Library/LaunchDaemons/com.github.execriez.networkstatuswarden.plist
+	/usr/NetworkStatusWarden/
 
-After the uninstall everything goes back to normal, and console user changes will not be tracked.
+After the uninstall everything goes back to normal, and network status up and down events will not be tracked.
 
 There's no need to reboot.
-
